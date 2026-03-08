@@ -1,0 +1,26 @@
+{
+  "name": "api-publisher",
+  "version": "1.0.0",
+  "description": "API publisher service for event-driven notification system",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "jest --runInBand",
+    "test:unit": "jest tests/publisher.test.js --runInBand",
+    "test:integration": "RUN_INTEGRATION_TESTS=true jest tests/integration.test.js --runInBand"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.1.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
