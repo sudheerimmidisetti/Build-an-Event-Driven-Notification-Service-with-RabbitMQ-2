@@ -1,0 +1,21 @@
+{
+  "name": "event-consumer",
+  "version": "1.0.0",
+  "description": "Event consumer worker for event-driven notification system",
+  "main": "src/worker.js",
+  "scripts": {
+    "start": "node src/worker.js",
+    "test": "jest --runInBand",
+    "test:unit": "jest tests/processor.test.js --runInBand"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.5",
+    "dotenv": "^16.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
