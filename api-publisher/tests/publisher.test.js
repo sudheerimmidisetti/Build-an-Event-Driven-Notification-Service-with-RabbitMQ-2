@@ -68,14 +68,14 @@ describe("EventPublisher", () => {
     expect(mockChannel.assertExchange).toHaveBeenCalledWith(
       "notification_exchange",
       "direct",
-      {
-        durable: true,
-      },
+      { durable: true }
     );
+
     expect(mockChannel.assertQueue).toHaveBeenCalledWith(
       "notification_queue",
-      expect.any(Object),
+      expect.any(Object)
     );
+
     expect(publisher.isReady()).toBe(true);
   });
 
@@ -88,12 +88,17 @@ describe("EventPublisher", () => {
     });
 
     expect(eventId).toBe("event-123");
+
     expect(mockChannel.publish).toHaveBeenCalledWith(
       "notification_exchange",
       "notification",
       expect.any(Buffer),
-      expect.objectContaining({ persistent: true, messageId: "event-123" }),
+      expect.objectContaining({
+        persistent: true,
+        messageId: "event-123",
+      })
     );
+
     expect(mockChannel.waitForConfirms).toHaveBeenCalledTimes(1);
   });
 
@@ -101,7 +106,7 @@ describe("EventPublisher", () => {
     const publisher = new EventPublisher();
 
     await expect(
-      publisher.publishEvent("user_signed_up", { userId: "u-1" }),
+      publisher.publishEvent("user_signed_up", { userId: "u-1" })
     ).rejects.toThrow("Publisher is not connected to RabbitMQ.");
   });
 });
@@ -134,10 +139,12 @@ describe("POST /api/events", () => {
 
     const app = buildApp({ publisher });
 
-    const response = await request(app).post("/api/events").send({
-      type: "",
-      payload: null,
-    });
+    const response = await request(app)
+      .post("/api/events")
+      .send({
+        type: "",
+        payload: null,
+      });
 
     expect(response.status).toBe(400);
     expect(publisher.publishEvent).not.toHaveBeenCalled();
